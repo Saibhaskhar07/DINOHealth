@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dino — Know Sooner</title>
+  <meta name="description" content="Dino fast-tracks your diagnostics — GP referral, lab booking, and AI-explained results, all in one app. Days, not months." />
+  <meta property="og:title" content="Dino — Know Sooner" />
+  <meta property="og:description" content="Stop waiting months for answers. Join the Dino waitlist." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:       #006241;
+      --green-dark:  #004d33;
+      --green-light: #e6f2ed;
+      --green-mid:   #cce6da;
+      --white:       #ffffff;
+      --off-white:   #f7faf8;
+      --black:       #0d1a14;
+      --gray:        #6b7b74;
+      --gray-light:  #e2ebe6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .wrapper {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--gray-light);
+    }
+
+    .logo { display: flex; align-items: center; gap: 10px; }
+
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: var(--green);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .logo-text {
+      font-family: 'Fraunces', serif;
+      font-size: 22px; font-weight: 900;
+      color: var(--black); letter-spacing: -0.5px;
+    }
+
+    .badge {
+      background: var(--green-light);
+      border: 1px solid var(--green-mid);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12px; font-weight: 600;
+      color: var(--green); letter-spacing: 0.3px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 0 72px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light);
+      border: 1px solid var(--green-mid);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px; font-weight: 600;
+      color: var(--green);
+      letter-spacing: 0.5px; text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.75); }
+    }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(44px, 8vw, 72px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -3px;
+      color: var(--black);
+      margin-bottom: 24px;
+    }
+
+    h1 em { font-style: italic; color: var(--green); }
+
+    .subtitle {
+      font-size: 18px; line-height: 1.7;
+      color: var(--gray);
+      max-width: 480px;
+      margin: 0 auto 48px;
+    }
+
+    /* ── COUNTER ── */
+    .counter {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-bottom: 24px;
+      font-size: 13px; color: var(--gray); font-weight: 500;
+    }
+
+    .avatars { display: flex; }
+
+    .avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 2px solid var(--white);
+      margin-left: -8px;
+      font-size: 10px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); background: var(--green);
+    }
+
+    .avatar:first-child  { margin-left: 0; }
+    .avatar:nth-child(2) { background: var(--green-dark); }
+    .avatar:nth-child(3) { background: #1a7a55; }
+    .avatar:nth-child(4) { background: #338a65; }
+
+    /* ── TALLY FORM WRAPPER ── */
+    .form-wrap {
+      background: var(--black);
+      border-radius: 20px;
+      padding: 36px;
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 16px;
+      display: block; text-align: left;
+      letter-spacing: 0.5px; text-transform: uppercase;
+    }
+
+    /*
+      ════════════════════════════════════════════════
+      TALLY EMBED — swap YOUR_TALLY_FORM_ID below
+      ════════════════════════════════════════════════
+      1. Go to tally.so → your form → Share → Embed
+      2. Copy the form ID from the embed snippet
+         e.g. https://tally.so/embed/wgdBOQ → ID = wgdBOQ
+      3. Replace YOUR_TALLY_FORM_ID in the iframe src
+      ════════════════════════════════════════════════
+    */
+    .tally-frame {
+      width: 100%;
+      min-height: 180px;
+      border: none;
+      border-radius: 12px;
+      background: transparent;
+    }
+
+    .form-footer {
+      font-size: 12px; color: rgba(255,255,255,0.3);
+      text-align: center; margin-top: 14px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider { border: none; border-top: 1px solid var(--gray-light); margin: 64px 0; }
+
+    /* ── FEATURES ── */
+    .section-label {
+      font-size: 11px; font-weight: 700;
+      color: var(--green);
+      letter-spacing: 1.5px; text-transform: uppercase;
+      text-align: center; margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 32px; font-weight: 800;
+      color: var(--black);
+      text-align: center; margin-bottom: 40px;
+      letter-spacing: -1px; line-height: 1.1;
+    }
+
+    .features {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 64px;
+    }
+
+    .feature-card {
+      background: var(--off-white);
+      border: 1px solid var(--gray-light);
+      border-radius: 16px; padding: 24px;
+      transition: all 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--green);
+      background: var(--green-light);
+    }
+
+    .feature-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .feature-title { font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 6px; }
+    .feature-desc  { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+    /* ── STEPS ── */
+    .steps-wrap {
+      background: var(--black);
+      border-radius: 24px; padding: 40px;
+      margin-bottom: 64px;
+    }
+
+    .steps-title {
+      font-family: 'Fraunces', serif;
+      font-size: 26px; font-weight: 800;
+      color: #fff;
+      margin-bottom: 32px; letter-spacing: -0.8px;
+    }
+
+    .step { display: flex; gap: 18px; align-items: flex-start; margin-bottom: 28px; }
+    .step:last-child { margin-bottom: 0; }
+
+    .step-num {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; color: #fff;
+      flex-shrink: 0; font-family: 'Fraunces', serif;
+    }
+
+    .step-content h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+    .step-content p  { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; }
+
+    /* ── TRUST TAGS ── */
+    .tags-row {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 64px; gap: 8px;
+    }
+
+    .legal-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: 100px; padding: 7px 14px;
+      font-size: 12px; color: var(--gray); font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .legal-tag:hover { border-color: var(--green); color: var(--green); background: var(--green-light); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--gray-light);
+      padding: 32px 0 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+
+    .footer-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'Fraunces', serif; font-size: 18px;
+      font-weight: 900; color: var(--black);
+    }
+
+    .footer-logo-mark {
+      width: 24px; height: 24px; background: var(--green);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .footer-text { font-size: 12px; color: var(--gray); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 560px) {
+      .features    { grid-template-columns: 1fr; }
+      footer       { flex-direction: column; text-align: center; }
+      h1           { letter-spacing: -1.5px; }
+      .steps-wrap  { padding: 28px 20px; }
+      .form-wrap   { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <div class="logo-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      <span class="logo-text">dino</span>
+    </div>
+    <div class="badge">Coming soon</div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      Now accepting early access
+    </div>
+
+    <h1>Stop waiting.<br>Know <em>sooner.</em></h1>
+
+    <p class="subtitle">
+      Dino fast-tracks your diagnostics — GP referral, lab booking,
+      and AI-explained results, all in one app. Days, not months.
+    </p>
+
+    <div class="counter">
+      <div class="avatars">
+        <div class="avatar">JL</div>
+        <div class="avatar">MK</div>
+        <div class="avatar">RP</div>
+        <div class="avatar">SA</div>
+      </div>
+      <span>247 Australians already on the list</span>
+    </div>
+
+    <!-- TALLY EMBED -->
+    <div class="form-wrap">
+      <label class="form-label">Get early access</label>
+
+      <!--
+        ┌─────────────────────────────────────────────────────┐
+        │  STEP TO CONNECT TALLY:                             │
+        │  1. Create your form on tally.so                    │
+        │  2. Click Share → Embed                             │
+        │  3. Copy your form ID from the URL                  │
+        │     e.g. tally.so/r/wgdBOQ → ID is wgdBOQ          │
+        │  4. Replace YOUR_TALLY_FORM_ID below with your ID   │
+        └─────────────────────────────────────────────────────┘
+      -->
+      <iframe
+        class="tally-frame"
+        src="https://tally.so/embed/7Ro76a?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+        loading="lazy"
+        title="Dino waitlist signup"
+      ></iframe>
+
+      <p class="form-footer">No spam. No commitments. First access when we launch in Adelaide.</p>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- FEATURES -->
+  <div class="section-label">Why Dino</div>
+  <div class="section-title">Everything you need,<br>nothing you don't</div>
+
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 3h6m-6 0v6l-4 9a1 1 0 001 1.5h10a1 1 0 001-1.5l-4-9V3"/>
+        </svg>
+      </div>
+      <div class="feature-title">Skip the GP wait</div>
+      <div class="feature-desc">Book a 10-minute telehealth consult. Get your referral issued the same day.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+      </div>
+      <div class="feature-title">AI results explainer</div>
+      <div class="feature-desc">No more Googling at midnight. Plain English, every marker, instantly.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <div class="feature-title">Medicare compatible</div>
+      <div class="feature-desc">AHPRA-registered GPs. Rebates apply. No surprise out-of-pocket costs.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0110 0v4"/>
+        </svg>
+      </div>
+      <div class="feature-title">Your data, secured</div>
+      <div class="feature-desc">My Health Record integrated. Results flow directly to you, privately.</div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps-wrap">
+    <div class="steps-title">From concern to clarity<br>in 4 steps</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Select your test</h3>
+        <p>Blood panels, allergy tests, hormone checks and more — no referral needed upfront.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>See a GP in minutes</h3>
+        <p>A telehealth GP issues your referral on the spot. Your nearest lab is booked automatically.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Get tested</h3>
+        <p>Walk in. Results flow directly into Dino via My Health Record — no chasing required.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h3>Understand everything</h3>
+        <p>Our AI explainer translates every marker into plain English. Book a follow-up in one tap.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUST TAGS -->
+  <div class="tags-row">
+    <span class="legal-tag">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#006241" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      AHPRA-registered GPs
+    </span>
+    <span class="legal-tag">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#006241" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Medicare rebates apply
+    </span>
+    <span class="legal-tag">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#006241" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      My Health Record integrated
+    </span>
+    <span class="legal-tag">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#006241" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      AI for education, not diagnosis
+    </span>
+    <span class="legal-tag">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#006241" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      Privacy Act compliant
+    </span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <div class="footer-logo-mark">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      dino
+    </div>
+    <div class="footer-text">© 2025 Dino Health · Adelaide, Australia</div>
+    <div class="footer-text">know sooner™</div>
+  </footer>
+
+</div>
+
+<!-- Tally resize script — keeps iframe height dynamic -->
+<script src="https://tally.so/widgets/embed.js"></script>
+
+</body>
+</html>
